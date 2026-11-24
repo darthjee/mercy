@@ -13,11 +13,11 @@ report and making it avaliable in a controller
 
 Yard Documentation
 -------------------
-[https://www.rubydoc.info/gems/mercy/1.6.0](https://www.rubydoc.info/gems/mercy/1.6.0)
+[https://www.rubydoc.info/gems/mercy/2.0.0](https://www.rubydoc.info/gems/mercy/2.0.0)
 
-**Current Release**: [3.2.0](https://github.com/darthjee/mercy/tree/3.2.0)
+**Current Release**: [2.0.0](https://github.com/darthjee/mercy/tree/2.0.0)
 
-**Next release**: [3.3.0](https://github.com/darthjee/mercy/compare/3.2.0...main)
+**Next release**: [2.1.0](https://github.com/darthjee/mercy/compare/2.0.0...main)
 
 Getting started
 ---------------
