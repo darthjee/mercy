@@ -1,0 +1,7 @@
+ignore:
+  - lib/arstotzka/type_cast_ext.rb
+  - lib/mercy.rb
+  - lib/mercy/class_methods.rb
+  - lib/mercy/concern.rb
+  - lib/mercy/report/active_record.rb
+  - lib/mercy/version.rb
