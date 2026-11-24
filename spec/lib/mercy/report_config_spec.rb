@@ -3,9 +3,10 @@
 require 'spec_helper'
 
 describe Mercy::ReportConfig do
+  subject { described_class.new(config) }
+
   let(:config)     { {} }
   let(:parameters) { {} }
-  let(:subject)    { described_class.new(config) }
 
   describe '#build' do
     context 'when no config is given' do

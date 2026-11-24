@@ -5,6 +5,7 @@ module Mercy
     module Multiple
       class Dummy < Mercy::Report
         include Mercy::Report::Multiple
+
         DEFAULT_OPTION = {
           doc_type: %i[a b]
         }.freeze

@@ -124,8 +124,8 @@ describe DocumentReportController, type: :controller do
           let(:errors)    { 4 }
           let(:successes) { 1 }
 
-          let(:expected_total_count)  { 5 }
-          let(:expected_error_count)  { 4 }
+          let(:expected_total_count) { 5 }
+          let(:expected_error_count) { 4 }
 
           it 'does not fail' do
             expect(response).to be_successful
@@ -158,8 +158,8 @@ describe DocumentReportController, type: :controller do
           let(:errors)    { 2 }
           let(:successes) { 3 }
 
-          let(:expected_total_count)  { 5 }
-          let(:expected_error_count)  { 2 }
+          let(:expected_total_count) { 5 }
+          let(:expected_error_count) { 2 }
 
           it 'does not fail' do
             expect(response).to be_successful

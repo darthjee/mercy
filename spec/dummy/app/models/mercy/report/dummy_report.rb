@@ -4,7 +4,8 @@ module Mercy
   class Report
     class DummyReport < Report
       ALLOWED_PARAMETERS = %i[period threshold].freeze
-      def initialize(options); end
+      def initialize(options) # rubocop:disable Lint/MissingSuper
+      end
     end
   end
 end

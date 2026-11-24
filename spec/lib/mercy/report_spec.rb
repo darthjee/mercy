@@ -4,8 +4,9 @@ require 'spec_helper'
 
 describe Mercy::Report do
   describe 'default_options' do
+    subject { report_class.new }
+
     let(:report_class) { described_class::Dummy1 }
-    let(:subject)      { report_class.new }
 
     it 'setup the attributes using class default options' do
       expect(subject.option_value).to eq(1)

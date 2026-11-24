@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+require 'simplecov-lcov'
+
+if ENV['CI']
+  SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+  SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+end
 
 SimpleCov.profiles.define 'gem' do
   add_filter '/spec/'
@@ -22,7 +28,7 @@ require 'rspec/rails'
 require 'active_support/railtie'
 
 support_files = File.expand_path('spec/support/**/*.rb')
-Dir[support_files].sort.each { |file| require file }
+Dir[support_files].each { |file| require file }
 
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true

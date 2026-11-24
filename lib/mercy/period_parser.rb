@@ -19,6 +19,7 @@ module Mercy
       def parse(period)
         return unless period
         return period if period.is_a?(Integer)
+
         new(period).to_seconds
       end
     end
@@ -37,6 +38,7 @@ module Mercy
     #   # returns 30.minutes (108000)
     def to_seconds
       return unless period =~ /^\d+(years|months|days|hours|minutes|seconds)?/
+
       type.blank? ? value.seconds : value.public_send(type)
     end
 

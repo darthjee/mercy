@@ -55,3 +55,6 @@ Style/Documentation:
     - 'lib/mercy/status.rb'
     - 'lib/mercy/status_builder.rb'
     - 'spec/dummy/**/*.rb'
+
+Gemspec/RequireMFA:
+  Enabled: false

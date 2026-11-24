@@ -8,3 +8,4 @@ rubycritic
 **/.*.swp
 **/*.log
 .claude/state/
+spec/dummy/tmp

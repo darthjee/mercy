@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe Mercy::Report::Range do
+  subject { described_class.new(options) }
+
   let(:errors)       { 1 }
   let(:successes)    { 1 }
   let(:old_errors)   { 2 }
@@ -20,7 +22,6 @@ describe Mercy::Report::Range do
       maximum: maximum
     }.clean
   end
-  let(:subject) { described_class.new(options) }
   let(:types) { [:a] }
 
   before do
@@ -30,7 +31,7 @@ describe Mercy::Report::Range do
 
       errors.times do |i|
         Document.create status: :error,
-                        external_id: 10 * successes + i,
+                        external_id: (10 * successes) + i,
                         outter_external_id: i, doc_type: type
       end
 
@@ -49,7 +50,7 @@ describe Mercy::Report::Range do
   describe '#status' do
     context 'when looking for maximum counts' do
       context 'when there are more errors than the allowed by the maximum' do
-        let(:errors) { 2 }
+        let(:errors)  { 2 }
         let(:maximum) { 1 }
 
         it { expect(subject.status).to eq(:error) }
@@ -170,7 +171,7 @@ describe Mercy::Report::Range do
 
       context 'when the count is the same as the minimum' do
         let(:successes) { 1 }
-        let(:errors) { 2 }
+        let(:errors) { 1 }
 
         it { expect(subject.status).to eq(:ok) }
       end

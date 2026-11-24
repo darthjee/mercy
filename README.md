@@ -6,14 +6,18 @@ Mercy
 [![Issue Count](https://codeclimate.com/github/darthjee/mercy/badges/issue_count.svg)](https://codeclimate.com/github/darthjee/mercy)
 [![Gem Version](https://badge.fury.io/rb/mercy.svg)](https://badge.fury.io/rb/mercy)
 
-![mercy](https://raw.githubusercontent.com/darthjee/mercy/master/mercy.jpg)
+![mercy](https://raw.githubusercontent.com/darthjee/mercy/main/mercy.jpg)
 
 This gem tries to make server monitoring easier and more reliable by adding an easly configurable
 report and making it avaliable in a controller
 
 Yard Documentation
 -------------------
-https://www.rubydoc.info/gems/mercy/1.6.0
+[https://www.rubydoc.info/gems/mercy/1.6.0](https://www.rubydoc.info/gems/mercy/1.6.0)
+
+**Current Release**: [3.2.0](https://github.com/darthjee/mercy/tree/3.2.0)
+
+**Next release**: [3.3.0](https://github.com/darthjee/mercy/compare/3.2.0...main)
 
 Getting started
 ---------------
