@@ -12,6 +12,10 @@ module Mercy
       reports.any?(&:error?) ? :error : :ok
     end
 
+    def http_status
+      status == :ok ? :ok : :internal_server_error
+    end
+
     def as_json
       {
         status: status

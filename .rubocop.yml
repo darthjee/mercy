@@ -1,11 +1,16 @@
-require: rubocop-rspec
+plugins:
+  - rubocop-rspec
+  - rubocop-rake
+
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.5
-
-RSpec/AlignLeftLetBrace:
-  Enabled: true
+  TargetRubyVersion: 3.4
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'spec/dummy/bin/**/*'
+    - 'spec/dummy/db/schema.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -16,16 +21,19 @@ Metrics/BlockLength:
 RSpec/AlignLeftLetBrace:
   Enabled: true
 
-Style/MixinUsage:
-  Exclude:
-    - 'spec/dummy/bin/setup'
-    - 'spec/dummy/bin/update'
-
-Metrics/LineLength:
+Layout/LineLength:
+  Max: 100
   Exclude:
     - 'spec/spec_helper.rb'
     - 'spec/dummy/config/**/*.rb'
 
-RSpec/FilePath:
+RSpec/SpecFilePathFormat:
   Exclude:
     - 'spec/integration/controller/**/*.rb'
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Layout/HashAlignment:
+  EnforcedColonStyle: [key, table]
+  EnforcedHashRocketStyle: [key, table]

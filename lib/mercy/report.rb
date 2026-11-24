@@ -6,6 +6,7 @@ module Mercy
   # Class responsible for generating reports
   class Report
     include Arstotzka
+
     require 'mercy/report/active_record'
     require 'mercy/report/error'
     require 'mercy/report/range'
@@ -21,6 +22,7 @@ module Mercy
     # @return [Hash]
     def self.default_options
       return {} if self == Report
+
       superclass.default_options.merge(self::DEFAULT_OPTION)
     end
 

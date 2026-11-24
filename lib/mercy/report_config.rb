@@ -23,13 +23,12 @@ module Mercy
 
     def report_class
       return type if type.is_a?(Class)
+
       @report_class ||= Mercy::Report.const_get(type.to_s.camelize)
     end
 
     def slice_parameters(parameters)
-      if parameters.respond_to?(:permit)
-        return parameters.permit(*allowed_parameters)
-      end
+      return parameters.permit(*allowed_parameters) if parameters.respond_to?(:permit)
 
       parameters.slice(*allowed_parameters)
     end

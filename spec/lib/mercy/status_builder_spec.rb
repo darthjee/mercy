@@ -62,7 +62,7 @@ describe Mercy::StatusBuilder do
     end
 
     context 'when not specifying where to report' do
-      let(:key) {}
+      let(:key) { nil }
 
       it 'register report under default' do
         expect(subject.build(:default).as_json).to eq(json_expected)

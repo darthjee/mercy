@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe Mercy::Report::Error do
+  subject { described_class.new(options) }
+
   let(:errors)       { 1 }
   let(:successes)    { 1 }
   let(:old_errors)   { 2 }
@@ -21,7 +23,6 @@ describe Mercy::Report::Error do
       external_key: external_key
     }
   end
-  let(:subject) { described_class.new(options) }
   let(:types) { [:a] }
 
   before do
@@ -31,7 +32,7 @@ describe Mercy::Report::Error do
 
       errors.times do |i|
         Document.create status: :error, doc_type: type,
-                        external_id: 10 * successes + i, outter_external_id: i
+                        external_id: (10 * successes) + i, outter_external_id: i
       end
 
       old_errors.times do
@@ -43,7 +44,7 @@ describe Mercy::Report::Error do
 
   describe '#status' do
     context 'when are more errors than the allowed by the threshold' do
-      let(:errors) { 1 }
+      let(:errors)    { 1 }
       let(:successes) { 3 }
 
       it { expect(subject.status).to eq(:error) }
@@ -85,11 +86,21 @@ describe Mercy::Report::Error do
         end
       end
     end
+
+    context 'when errors percentage overcames threshold' do
+      it { expect(subject.status).to eq(:error) }
+    end
+
+    context 'when errors percentage does not overcames threshold' do
+      let(:errors) { 0 }
+
+      it { expect(subject.status).to eq(:ok) }
+    end
   end
 
   describe 'percentage' do
     context 'when there are 25% erros' do
-      let(:errors) { 1 }
+      let(:errors)    { 1 }
       let(:successes) { 3 }
 
       it { expect(subject.percentage).to eq(0.25) }
@@ -304,18 +315,6 @@ describe Mercy::Report::Error do
       let(:errors) { 0 }
 
       it { expect(subject).not_to be_error }
-    end
-  end
-
-  describe '#status' do
-    context 'when errors percentage overcames threshold' do
-      it { expect(subject.status).to eq(:error) }
-    end
-
-    context 'when errors percentage does not overcames threshold' do
-      let(:errors) { 0 }
-
-      it { expect(subject.status).to eq(:ok) }
     end
   end
 

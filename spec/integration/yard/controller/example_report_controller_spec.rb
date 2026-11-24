@@ -12,14 +12,14 @@ describe ExampleReportController, type: :controller do
       {
         'status' => 'error',
         'errors_a' => {
-          'ids' =>        [10],
+          'ids' => [10],
           'percentage' => 0.02,
-          'status' =>     'ok'
+          'status' => 'ok'
         },
         'errors_b' => {
-          'ids' =>        [20],
+          'ids' => [20],
           'percentage' => 0.25,
-          'status' =>     'error'
+          'status' => 'error'
         }
       }
     end
@@ -55,11 +55,11 @@ describe ExampleReportController, type: :controller do
         'successes' => {
           'status' => 'error',
           'a' => {
-            'count' =>  10,
+            'count' => 10,
             'status' => 'ok'
           },
           'b' => {
-            'count' =>  2,
+            'count' => 2,
             'status' => 'error'
           }
         }

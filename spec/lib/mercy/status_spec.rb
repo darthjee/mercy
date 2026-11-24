@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 describe Mercy::Status do
+  subject { described_class.new(reports) }
+
   let(:threshold) { 0.02 }
   let(:period)    { 1.day }
   let(:report_options) do
@@ -27,7 +29,6 @@ describe Mercy::Status do
     Mercy::Report::Error.new(success_options)
   end
   let(:reports) { [error_report] }
-  let(:subject) { described_class.new(reports) }
 
   before do
     Document.all.each(&:destroy)
@@ -37,7 +38,7 @@ describe Mercy::Status do
 
   describe '#as_json' do
     let(:status_json) { subject.as_json }
-    let(:status) { status_json[:status] }
+    let(:status)      { status_json[:status] }
 
     context 'when report is ok' do
       it 'returns a json with ok' do
@@ -45,6 +46,7 @@ describe Mercy::Status do
       end
 
       it 'returns the report json' do
+        expect(status_json[:errors]).to eq(error_report.as_json)
       end
     end
 
@@ -64,6 +66,65 @@ describe Mercy::Status do
 
       it 'returns a json with error' do
         expect(status).to eq(:error)
+      end
+    end
+
+    context 'when building the full summary' do
+      let(:errors) { 3 }
+      let(:ids)    { Document.with_error.map(&:id) }
+      let(:expected) do
+        {
+          status: :error,
+          errors: {
+            ids: ids,
+            percentage: 0.75,
+            status: :error
+          }
+        }
+      end
+
+      it 'creates a summary of the reports' do
+        expect(subject.as_json).to eq(expected)
+      end
+
+      context 'when there are both success and error reports' do
+        let(:success_ids) { Document.with_success.map(&:id) }
+        let(:expected) do
+          {
+            status: :error,
+            errors: {
+              ids: ids,
+              percentage: 0.75,
+              status: :error
+            },
+            success: {
+              ids: success_ids,
+              percentage: 0.25,
+              status: :error
+            }
+          }
+        end
+        let(:reports) { [success_report, error_report] }
+
+        it 'creates a summary of all the reports' do
+          expect(subject.as_json).to eq(expected)
+        end
+      end
+    end
+  end
+
+  describe '#http_status' do
+    context 'when report is ok' do
+      it do
+        expect(subject.http_status).to eq(:ok)
+      end
+    end
+
+    context 'when report is not ok' do
+      let(:errors) { 1 }
+
+      it do
+        expect(subject.http_status).to eq(:internal_server_error)
       end
     end
   end
@@ -88,49 +149,6 @@ describe Mercy::Status do
 
       it do
         expect(subject.status).to eq(:error)
-      end
-    end
-  end
-
-  describe '#as_json' do
-    let(:errors) { 3 }
-    let(:ids) { Document.with_error.map(&:id) }
-    let(:expected) do
-      {
-        status: :error,
-        errors: {
-          ids: ids,
-          percentage: 0.75,
-          status: :error
-        }
-      }
-    end
-
-    it 'creates a summary of the reports' do
-      expect(subject.as_json).to eq(expected)
-    end
-
-    context 'when there are both success and error reports' do
-      let(:success_ids) { Document.with_success.map(&:id) }
-      let(:expected) do
-        {
-          status: :error,
-          errors: {
-            ids: ids,
-            percentage: 0.75,
-            status: :error
-          },
-          success: {
-            ids: success_ids,
-            percentage: 0.25,
-            status: :error
-          }
-        }
-      end
-      let(:reports) { [success_report, error_report] }
-
-      it 'creates a summary of all the reports' do
-        expect(subject.as_json).to eq(expected)
       end
     end
   end
